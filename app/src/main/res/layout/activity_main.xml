@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.alexandru.simplelocationapp.MainActivity">
+
 
     <TextView
         android:id="@+id/locationTextView"
@@ -12,4 +15,21 @@
         android:text="Location goes here!"
         android:textSize="20dp" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/locationLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:digits="numeric"
+        android:text="latitude goes here"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/locationLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:digits="numeric"
+        android:text="longitude goes here"
+        android:textSize="18dp" />
+
+
+</LinearLayout>

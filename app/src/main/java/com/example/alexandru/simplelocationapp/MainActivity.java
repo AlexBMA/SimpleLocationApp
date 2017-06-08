@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-    private TextView textView;
+    private TextView textViewLocation;
+    private TextView textViewLatitude;
+    private TextView textViewLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addOnConnectionFailedListener(this)
                 .build();
 
-        textView = (TextView) findViewById(R.id.locationTextView);
-
+        textViewLocation = (TextView) findViewById(R.id.locationTextView);
+        textViewLatitude = (TextView) findViewById(R.id.locationLat);
+        textViewLongitude = (TextView) findViewById(R.id.locationLong);
 
     }
 
@@ -87,7 +90,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onLocationChanged(Location location) {
 
         Log.e(LOG_TAG, location.toString());
-        textView.setText(location.toString());
+        textViewLocation.setText(location.toString());
+        textViewLatitude.setText(location.getLatitude() + "");
+        textViewLongitude.setText(location.getLongitude() + "");
+
 
     }
 }
