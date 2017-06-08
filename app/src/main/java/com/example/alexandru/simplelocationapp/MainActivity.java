@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -17,9 +17,9 @@ import com.google.android.gms.location.LocationServices;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 
-    private final String LOG_TAG = "locationApp ";
-    private final int MAX_INACTIVE_MILISECONDS = 1000;
-    FusedLocationProviderClient client;
+    private final String LOG_TAG = "locationApp";
+    private final int MAX_INACTIVE = 5;
+
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
     private TextView textView;
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .build();
 
         textView = (TextView) findViewById(R.id.locationTextView);
-
 
 
     }
@@ -61,7 +60,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setMaxWaitTime(MAX_INACTIVE_MILISECONDS);
+        locationRequest.setInterval(MAX_INACTIVE);
+
+        Log.e(LOG_TAG, googleApiClient.isConnected() + "");
+
 
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
 
@@ -72,15 +74,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionSuspended(int i) {
 
+        Log.e(LOG_TAG, "SUSPENDED");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+        Log.e(LOG_TAG, "FAILED " + connectionResult.toString());
     }
 
     @Override
     public void onLocationChanged(Location location) {
+
+        Log.e(LOG_TAG, location.toString());
+        textView.setText(location.toString());
 
     }
 }
