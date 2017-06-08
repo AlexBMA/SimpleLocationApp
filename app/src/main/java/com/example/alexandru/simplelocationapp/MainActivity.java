@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 .addOnConnectionFailedListener(this)
                 .build();
 
+        textView = (TextView) findViewById(R.id.locationTextView);
+
+
 
     }
 
@@ -42,8 +45,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     protected void onStart() {
         super.onStart();
+
+        googleApiClient.connect();
     }
 
+
+    @Override
+    protected void onStop() {
+        googleApiClient.disconnect();
+        super.onStop();
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
