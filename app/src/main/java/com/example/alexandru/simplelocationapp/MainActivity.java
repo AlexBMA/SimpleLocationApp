@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private TextView textView;
 
 
-    private int var;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
