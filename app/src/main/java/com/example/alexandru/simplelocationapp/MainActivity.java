@@ -91,8 +91,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         Log.e(LOG_TAG, location.toString());
         textViewLocation.setText(location.toString());
-        textViewLatitude.setText(location.getLatitude() + "");
-        textViewLongitude.setText(location.getLongitude() + "");
+        textViewLatitude.setText("Lat: " + location.getLatitude() + "");
+        textViewLongitude.setText("Long: " + location.getLongitude() + "");
+
 
 
     }
