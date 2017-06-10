@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private final String LOG_TAG = "locationApp";
     private final int MAX_INACTIVE = 5;
 
-    private GoogleApiClient googleApiClient;
+    private GoogleApiClient mGoogleApiClient;
     private LocationRequest locationRequest;
     private TextView textViewLocation;
     private TextView textViewLatitude;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        googleApiClient = new GoogleApiClient.Builder(this)
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -48,13 +48,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onStart() {
         super.onStart();
 
-        googleApiClient.connect();
+        mGoogleApiClient.connect();
     }
 
 
     @Override
     protected void onStop() {
-        googleApiClient.disconnect();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
         super.onStop();
     }
 
@@ -65,12 +67,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(MAX_INACTIVE);
 
-        Log.e(LOG_TAG, googleApiClient.isConnected() + "");
+        Log.e(LOG_TAG, mGoogleApiClient.isConnected() + "");
 
 
-        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
 
-        // googleApiClient.
+        // mGoogleApiClient.
 
     }
 
